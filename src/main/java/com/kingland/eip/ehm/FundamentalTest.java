@@ -110,6 +110,9 @@ public class FundamentalTest {
      * @return The length of original String
      */
     public static int stringFormat(String origin) {
+        if (null == origin || origin.isEmpty()) {
+            return 0;
+        }
         final char space = ' ';
         final char characterG = 'G';
 
