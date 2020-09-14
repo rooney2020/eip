@@ -22,57 +22,99 @@ public class FundamentalTest {
      */
     public static final int NUM = 10;
 
-    /**
-     * The Month abbreviation array
-     */
-    public static final String[] MONTHNAME = {"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sept","Oct","Nov","Dec"};
-
     public static void main(String[] args) {
         // first task
         System.out.println("hello world");
+
         // second task
         print(NUM);
+
         // third task
-        System.out.println(MONTHNAME[MONTH-1]);
+        printMonth(MONTH);
+
         // fourth task
         int length = stringFormat("Good morning");
-        if (length%2 == 0) {
+        if (length % 2 == 0) {
             System.out.println("The length of String is : " + length);
-        }else {
+        } else {
             System.out.println("The length of String is Odd number");
         }
     }
 
     /**
      * This will print some stars, date and time.
+     *
      * @param num The number of how many star will be printed out
      */
     public static void print(int num) {
-        final String STAR = "*";
-        for (int i = num; i >= 1; i--) {
+        final String star = "*";
+        for (int i = num; i > 1; i--) {
             for (int j = 0; j < i; j++) {
-                System.out.print(STAR);
+                System.out.print(star);
             }
             System.out.println();
         }
-        LocalDate localDate = LocalDate.now();
-        LocalTime localTime = LocalTime.now();
-        System.out.println("localDate: " + localDate);
-        System.out.println("localTime: " + localTime);
+        System.out.println("localTime: " + LocalDate.now() + " " + LocalTime.now());
+    }
+
+    /**
+     * This will prints out the corresponding month abbreviation
+     *
+     * @param num The number of how many star will be printed out
+     */
+    public static void printMonth(int num) {
+        switch (num) {
+            case 1:
+                System.out.println("Jan");
+                break;
+            case 2:
+                System.out.println("Feb");
+                break;
+            case 3:
+                System.out.println("Mar");
+                break;
+            case 4:
+                System.out.println("Apr");
+                break;
+            case 5:
+                System.out.println("May");
+                break;
+            case 6:
+                System.out.println("Jun");
+                break;
+            case 7:
+                System.out.println("Jul");
+                break;
+            case 8:
+                System.out.println("Aug");
+                break;
+            case 9:
+                System.out.println("Sept");
+                break;
+            case 10:
+                System.out.println("Oct");
+                break;
+            case 11:
+                System.out.println("Nov");
+                break;
+            default:
+                System.out.println("Dec");
+                break;
+        }
     }
 
     /**
      * If the original String meets the requirements,  every element in it will be printed out and return the he length of it
+     *
      * @param origin The original String
      * @return The length of original String
      */
     public static int stringFormat(String origin) {
-        final char SPACE = ' ';
+        final char space = ' ';
         final char characterG = 'G';
 
-        if (origin.indexOf(SPACE) != -1 && origin.charAt(0) == characterG) {
-            System.out.println("characterG".toUpperCase());
-            String[] stringArray = origin.split(String.valueOf(SPACE));
+        if (origin.indexOf(space) != -1 && origin.charAt(0) == characterG) {
+            String[] stringArray = origin.split(String.valueOf(space));
             for (String character : stringArray) {
                 System.out.println(character);
             }
