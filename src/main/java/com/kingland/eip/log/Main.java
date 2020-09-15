@@ -5,7 +5,7 @@ package com.kingland.eip.log;
 
 /**
  * @author KSC
- * @description
+ * @description The main class of the project
  */
 public class Main {
     public static void main(String[] args) throws Exception {
