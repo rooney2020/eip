@@ -48,7 +48,7 @@ public class FundamentalTest {
      */
     public static void print(int num) {
         final String star = "*";
-        for (int i = num; i > 1; i--) {
+        for (int i = num; i > 0; i--) {
             for (int j = 0; j < i; j++) {
                 System.out.print(star);
             }
