@@ -5,7 +5,7 @@ package com.kingland.eip.log;
 
 /**
  * @author KSC
- * @description
+ * @description The base builder to set all attributes of logger
  */
 public abstract class LoggerBuilder {
     /**
@@ -25,6 +25,7 @@ public abstract class LoggerBuilder {
 
     /**
      * return logger
+     *
      * @return logger
      */
     public abstract BaseLogger getLogger();

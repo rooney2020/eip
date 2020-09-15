@@ -5,9 +5,12 @@ package com.kingland.eip.log;
 
 /**
  * @author KSC
- * @description The logger extends BaseLogger to output the log info to Files
+ * @description The logger extends LoggerBuilder to output the log info to Files
  */
 public class FileLoggerBuilder extends LoggerBuilder {
+    /**
+     * base logger
+     */
     private BaseLogger baseLogger = new BaseLogger();
 
     /**

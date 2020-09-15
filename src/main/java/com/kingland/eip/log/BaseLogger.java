@@ -23,14 +23,29 @@ public class BaseLogger {
      */
     private int maxLength;
 
+    /**
+     * set header
+     *
+     * @param header The output message will start with this string
+     */
     public void setHeader(String header) {
         this.header = header;
     }
 
+    /**
+     * set minLength
+     *
+     * @param minLength The minimum length of message
+     */
     public void setMinLength(int minLength) {
         this.minLength = minLength;
     }
 
+    /**
+     * set maxLength
+     *
+     * @param maxLength The maximum length of message
+     */
     public void setMaxLength(int maxLength) {
         this.maxLength = maxLength;
     }
@@ -74,7 +89,7 @@ public class BaseLogger {
     /**
      * Verify that the message meets the requirements
      *
-     * @param message   message
+     * @param message message
      * @throws Exception Exception
      */
     private void validMessage(String message) throws Exception {

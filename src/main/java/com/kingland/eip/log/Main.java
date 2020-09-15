@@ -9,10 +9,12 @@ package com.kingland.eip.log;
  */
 public class Main {
     public static void main(String[] args) throws Exception {
+        // set corresponding messages and exception
         String consoleMessage = "Message";
         String fileMessage = "Hello, Message";
         String exception = "Exception: NullPointerException";
 
+        // create corresponding loggers
         LoggerDirector director = new LoggerDirector();
         ConsoleLoggerBuilder consoleLoggerBuilder = new ConsoleLoggerBuilder();
         FileLoggerBuilder fileLoggerBuilder = new FileLoggerBuilder();
@@ -21,9 +23,11 @@ public class Main {
         BaseLogger consoleLogger = consoleLoggerBuilder.getLogger();
         BaseLogger fileLogger = fileLoggerBuilder.getLogger();
 
+        // use consoleLogger to log message
         consoleLogger.log(exception);
         consoleLogger.log(exception, consoleMessage);
 
+        // use fileLogger to log message
         fileLogger.log(exception);
         fileLogger.log(exception, fileMessage);
     }
