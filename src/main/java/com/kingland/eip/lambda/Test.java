@@ -4,6 +4,10 @@
 package com.kingland.eip.lambda;
 
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.BinaryOperator;
@@ -93,24 +97,29 @@ public class Test {
         System.out.println("===================== 3 ========================");
 
         //3. Print last Thursday date for given time 2020/9/17, which will be 2020/9/10
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
         Date givenTime = new Date("2020/9/17");
         Calendar calendar = new GregorianCalendar();
         calendar.setTime(givenTime);
         calendar.set(Calendar.WEEK_OF_YEAR, calendar.get(Calendar.WEEK_OF_YEAR) - 1);
         calendar.set(Calendar.DAY_OF_WEEK, 5);
-        System.out.println(simpleDateFormat.format(calendar.getTime()));
+        System.out.println(sdf.format(calendar.getTime()));
         System.out.println("===================== 4 ========================");
 
         //4. Transfer Instant to LocalDateTime by using default zoneId.
-
+        Instant instant = Instant.now();
+        LocalDateTime localDateTime = LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
+        System.out.println(localDateTime);
         System.out.println("===================== 5 ========================");
 
         //5. Print year, month and day from current time.
+        //Format should be like "Year : %d Month : %d day : %d"
+        Calendar c = new GregorianCalendar();
+        System.out.println("Year : " + c.get(Calendar.YEAR) + " Month : " + c.get(Calendar.MONTH) + " day : " + c.get(Calendar.DAY_OF_MONTH));
         System.out.println("===================== 6 ========================");
 
-        //Format should be like "Year : %d Month : %d day : %d"
-        System.out.println("================================================");
-
         //6. Print date which is one week later from now.
+        c.set(Calendar.WEEK_OF_YEAR, c.get(Calendar.WEEK_OF_YEAR) + 1);
+        System.out.println(sdf.format(c.getTime()));
     }
 }
