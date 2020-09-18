@@ -5,7 +5,7 @@ package com.kingland.eip.arraylist;
 
 /**
  * @author KSC
- * @description
+ * @description Employee entity
  */
 public class Employee {
     private long number;

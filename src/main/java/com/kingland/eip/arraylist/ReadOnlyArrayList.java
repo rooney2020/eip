@@ -11,7 +11,8 @@ import java.util.stream.Stream;
 
 /**
  * @author KSC
- * @description
+ * @description This class extends ArrayList and override all methods.
+ * There is a ArrayList type field in this class which is the real list and datas will be stored in it.
  */
 public class ReadOnlyArrayList<T> extends ArrayList {
     /**
@@ -21,6 +22,7 @@ public class ReadOnlyArrayList<T> extends ArrayList {
 
     /**
      * initial the real arrayList with constructor argument
+     *
      * @param arrayList initial value
      */
     public ReadOnlyArrayList(ArrayList<T> arrayList) {
@@ -99,7 +101,7 @@ public class ReadOnlyArrayList<T> extends ArrayList {
 
     @Override
     public Iterator iterator() {
-        return list.iterator();
+        return new ItrCopy();
     }
 
     @Override
@@ -218,5 +220,69 @@ public class ReadOnlyArrayList<T> extends ArrayList {
     @Override
     public void sort(Comparator comparator) {
 //        throw new MyException();
+    }
+
+    private class ItrCopy implements Iterator<T> {
+        int cursor;
+        int lastRet = -1;
+        int expectedModCount;
+
+        ItrCopy() {
+            this.expectedModCount = ReadOnlyArrayList.super.modCount;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return this.cursor != ReadOnlyArrayList.this.size();
+        }
+
+        @Override
+        public T next() {
+            this.checkForComodification();
+            int var1 = this.cursor;
+            if (var1 >= ReadOnlyArrayList.this.size()) {
+                throw new NoSuchElementException();
+            } else {
+                Object[] var2 = ReadOnlyArrayList.this.list.toArray();
+                if (var1 >= var2.length) {
+                    throw new ConcurrentModificationException();
+                } else {
+                    this.cursor = var1 + 1;
+                    return (T) var2[this.lastRet = var1];
+                }
+            }
+        }
+
+        @Override
+        public void remove() {
+//            throw new MyException();
+        }
+
+        @Override
+        public void forEachRemaining(Consumer<? super T> var1) {
+            Objects.requireNonNull(var1);
+            int var2 = ReadOnlyArrayList.this.size();
+            int var3 = this.cursor;
+            if (var3 < var2) {
+                Object[] var4 = ReadOnlyArrayList.this.list.toArray();
+                if (var3 >= var4.length) {
+                    throw new ConcurrentModificationException();
+                } else {
+                    while (var3 != var2 && ReadOnlyArrayList.this.modCount == this.expectedModCount) {
+                        var1.accept((T) var4[var3++]);
+                    }
+
+                    this.cursor = var3;
+                    this.lastRet = var3 - 1;
+                    this.checkForComodification();
+                }
+            }
+        }
+
+        final void checkForComodification() {
+            if (ReadOnlyArrayList.this.modCount != this.expectedModCount) {
+                throw new ConcurrentModificationException();
+            }
+        }
     }
 }

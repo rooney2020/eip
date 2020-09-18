@@ -9,7 +9,7 @@ import java.util.Iterator;
 
 /**
  * @author KSC
- * @description
+ * @description Read only test
  */
 public class Test {
     public static void main(String[] args) {
@@ -42,11 +42,10 @@ public class Test {
         Iterator<Employee> iterator = list.iterator();
         while (iterator.hasNext()) {
             Employee e = iterator.next();
-            e.setAge(20);
+            iterator.remove();
         }
-
+        System.out.println("====================================================");
         System.out.println(list.toString());
-
     }
 
     public static final Comparator<Employee> COMPARATOR = Comparator.comparingInt(Employee::getAge);
