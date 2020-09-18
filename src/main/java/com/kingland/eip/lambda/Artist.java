@@ -47,7 +47,7 @@ public class Artist {
         return "Artist{" +
                 "name='" + name + '\'' +
                 ", age=" + age +
-                ", profession=" + profession +
+                ", profession=" + profession.getProfession() +
                 '}';
     }
 }
