@@ -7,7 +7,6 @@ import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.ZoneOffset;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.BinaryOperator;
@@ -43,7 +42,7 @@ public class Test {
         // 3. Get first two ages from artists
         Stream<Integer> twoAges = artists.stream().map(a -> a.getAge());
         AtomicInteger i = new AtomicInteger();
-        twoAges.filter(a -> i.getAndIncrement() <2).forEach(a -> System.out.println(a));
+        twoAges.filter(a -> i.getAndIncrement() < 2).forEach(a -> System.out.println(a));
         System.out.println("====================== 4 ======================");
 
         // 4. Sort the artist list by age in desc.
@@ -59,7 +58,7 @@ public class Test {
         System.out.println("====================== 6 ======================");
 
         // 6. Get all even number ages from artists
-        Stream<Integer> evenAges = artists.stream().map(a -> a.getAge()).filter(a -> a%2==0);
+        Stream<Integer> evenAges = artists.stream().map(a -> a.getAge()).filter(a -> a % 2 == 0);
         evenAges.forEach(a -> System.out.println(a));
         System.out.println("====================== 7 ======================");
 
