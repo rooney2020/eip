@@ -8,8 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionStage;
 import java.util.concurrent.ExecutionException;
-import java.util.function.Supplier;
 
 /**
  * @author KSC
@@ -17,32 +17,30 @@ import java.util.function.Supplier;
  */
 public class Test {
     public static void main(String[] args) throws ExecutionException, InterruptedException {
-        Supplier<List<Book>> task = () -> getBookList();
-        CompletableFuture<List<Book>> completableFuture = CompletableFuture.supplyAsync(task)
-                .thenApply(list -> {
-                    for (Book book : list) {
-                        book.setScore(getScore(book.getId()));
-                    }
-                    return list;
-                });
-        System.out.println(completableFuture.get());
+        CompletionStage<List<Book>> completableFuture = getBookList().thenApply(list -> {
+            for (Book book : list) {
+                book.setScore(getScore(book.getId()));
+            }
+            return list;
+        });
+        System.out.println(completableFuture);
     }
 
-    public static List<Book> getBookList() {
+    public static CompletionStage<List<Book>> getBookList() throws ExecutionException, InterruptedException {
         List<Book> list = new ArrayList<>();
         list.add(new Book(10001L, "C Primer"));
         list.add(new Book(10002L, "Java Language"));
         list.add(new Book(10003L, "Python Language"));
         list.add(new Book(10004L, "PHP Language"));
-        return list;
+        return CompletableFuture.supplyAsync(() -> list);
     }
 
-    public static Double getScore(long bookId) {
+    public static CompletionStage<Double> getScore(long bookId) {
         Map<Long, Double> map = new HashMap<>();
         map.put(10001L, 8.9);
         map.put(10002L, 9.2);
         map.put(10003L, 8.8);
         map.put(10004L, 8.3);
-        return map.get(bookId);
+        return CompletableFuture.supplyAsync(() -> map.get(bookId));
     }
 }
