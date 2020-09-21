@@ -19,11 +19,11 @@ public class Test {
     public static void main(String[] args) throws ExecutionException, InterruptedException {
         CompletionStage<List<Book>> completableFuture = getBookList().thenApply(list -> {
             for (Book book : list) {
-                book.setScore(getScore(book.getId()));
+                getScore(book.getId()).thenAccept(score -> book.setScore(score));
             }
+            System.out.println(list);
             return list;
         });
-        System.out.println(completableFuture);
     }
 
     public static CompletionStage<List<Book>> getBookList() throws ExecutionException, InterruptedException {
