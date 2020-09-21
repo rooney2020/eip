@@ -35,7 +35,7 @@ public class Test {
     }
 
     public static CompletionStage<Double> getScore(long bookId) {
-        Map<Long, Double> map = new HashMap<>();
+        Map<Long, Double> map = new HashMap<>(4);
         map.put(10001L, 8.9);
         map.put(10002L, 9.2);
         map.put(10003L, 8.8);
