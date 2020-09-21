@@ -9,14 +9,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
-import java.util.concurrent.ExecutionException;
 
 /**
  * @author KSC
  * @description
  */
 public class Test {
-    public static void main(String[] args) throws ExecutionException, InterruptedException {
+    public static void main(String[] args) {
         CompletionStage<List<Book>> completableFuture = getBookList().thenApply(list -> {
             for (Book book : list) {
                 getScore(book.getId()).thenAccept(score -> book.setScore(score));
@@ -26,7 +25,7 @@ public class Test {
         });
     }
 
-    public static CompletionStage<List<Book>> getBookList() throws ExecutionException, InterruptedException {
+    public static CompletionStage<List<Book>> getBookList() {
         List<Book> list = new ArrayList<>();
         list.add(new Book(10001L, "C Primer"));
         list.add(new Book(10002L, "Java Language"));
