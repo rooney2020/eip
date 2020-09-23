@@ -13,11 +13,19 @@ public class ConsoleLogger extends BaseLogger {
         System.out.println("ConsoleLogger: " + log);
     }
 
+    /**
+     * Constructor
+     *
+     * @param builder builder
+     */
     private ConsoleLogger(Builder builder) {
         this.setMaxLength(builder.maxLength);
         this.setMinLength(builder.minLength);
     }
 
+    /**
+     * Builder pattern
+     */
     public static class Builder {
         private int maxLength;
 

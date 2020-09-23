@@ -19,6 +19,16 @@ public class ConsoleLogger {
     private int maxLength;
 
     /**
+     * Constructor
+     *
+     * @param maxLength The maximum length of message
+     * @param minLength The minimum length of message
+     */
+    private ConsoleLogger(int maxLength, int minLength) {
+
+    }
+
+    /**
      * This method can print out exception
      *
      * @param exception exception
