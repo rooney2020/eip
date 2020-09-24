@@ -7,12 +7,7 @@ package com.kingland.eip.log;
  * @author KSC
  * @description The base class of all loggers
  */
-public class BaseLogger {
-    /**
-     * The output message will start with this string
-     */
-    private String header;
-
+public abstract class BaseLogger implements Logger {
     /**
      * The minimum length of message
      */
@@ -22,15 +17,6 @@ public class BaseLogger {
      * The maximum length of message
      */
     private int maxLength;
-
-    /**
-     * set header
-     *
-     * @param header The output message will start with this string
-     */
-    public void setHeader(String header) {
-        this.header = header;
-    }
 
     /**
      * set minLength
@@ -55,9 +41,10 @@ public class BaseLogger {
      *
      * @param exception exception
      */
-    public void log(String exception) throws Exception {
+    @Override
+    public void logger(String exception) throws Exception {
         validException(exception);
-        System.out.println(header + exception);
+        doLog(exception);
     }
 
     /**
@@ -66,12 +53,19 @@ public class BaseLogger {
      * @param exception exception
      * @param message   message
      */
-    public void log(String exception, String message) throws Exception {
+    @Override
+    public void logger(String exception, String message) throws Exception {
         validMessage(message);
-        validException(exception);
-        System.out.println(header + message);
-        System.out.println(header + exception);
+        doLog(message);
+        logger(exception);
     }
+
+    /**
+     * Actual log the message
+     *
+     * @param log log message
+     */
+    protected abstract void doLog(String log);
 
     /**
      * Verify that the exception meets the requirements

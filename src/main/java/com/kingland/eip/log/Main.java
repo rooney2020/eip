@@ -15,20 +15,21 @@ public class Main {
         String exception = "Exception: NullPointerException";
 
         // create corresponding loggers
-        LoggerDirector director = new LoggerDirector();
-        ConsoleLoggerBuilder consoleLoggerBuilder = new ConsoleLoggerBuilder();
-        FileLoggerBuilder fileLoggerBuilder = new FileLoggerBuilder();
-        director.create(consoleLoggerBuilder);
-        director.create(fileLoggerBuilder);
-        BaseLogger consoleLogger = consoleLoggerBuilder.getLogger();
-        BaseLogger fileLogger = fileLoggerBuilder.getLogger();
+        Logger fileLogger = (Logger) new FileLogger
+                .Builder()
+                .setMinLength(10)
+                .setMaxLength(50)
+                .build();
+        fileLogger.logger("Exception file");
+        fileLogger.logger("Exception file", "Test minimum length");
 
-        // use consoleLogger to log message
-        consoleLogger.log(exception);
-        consoleLogger.log(exception, consoleMessage);
+        Logger consoleLogger = (Logger) new ConsoleLogger
+                .Builder()
+                .setMinLength(5)
+                .setMaxLength(10)
+                .build();
 
-        // use fileLogger to log message
-        fileLogger.log(exception);
-        fileLogger.log(exception, fileMessage);
+        consoleLogger.logger("Exception console");
+        consoleLogger.logger("Exception console", "Console test");
     }
 }
