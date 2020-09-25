@@ -23,8 +23,8 @@ public class Test {
         buffer.add("Hello, test number: " + ++i);
         buffer.add("Hello, test number: " + ++i);
 
-        BaseSender sender = new ConsoleSender(buffer, 3);
-        BaseLoader loader = new FileLoader(buffer, 2);
+        BaseSender sender = new ConsoleSender(3, buffer);
+        BaseLoader loader = new FileLoader(2, buffer);
         loader.thread = sender;
         loader.start();
         sender.start();

@@ -3,6 +3,8 @@
  */
 package com.kingland.practice.buffer;
 
+import com.kingland.practice.sender.BaseSender;
+
 import java.util.List;
 
 /**
@@ -49,5 +51,5 @@ public abstract class BaseBuffer<T> {
      * @param num the number of elements to send
      * @return return the list of elements
      */
-    public abstract List<T> consume(int num);
+    public abstract void consume(int num, BaseSender sender);
 }

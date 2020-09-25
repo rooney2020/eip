@@ -13,16 +13,13 @@ import java.util.List;
  * @description
  */
 public class FileLoader<T> extends BaseLoader {
-    private int num;
-
     /**
      * Constructor
      *
      * @param buffer set the designation buffer
      */
-    public FileLoader(BaseBuffer buffer, int num) {
-        super(buffer);
-        this.num = num;
+    public FileLoader(int num, BaseBuffer buffer) {
+        super(num, buffer);
     }
 
     /**
@@ -30,8 +27,8 @@ public class FileLoader<T> extends BaseLoader {
      */
     @Override
     public List<T> getData() {
-        List<T> list = new ArrayList<>(num);
-        for (int i = 0; i < num; i++) {
+        List<T> list = new ArrayList<>(getNum());
+        for (int i = 0; i < getNum(); i++) {
             list.add((T) "Hello world!");
         }
         return list;

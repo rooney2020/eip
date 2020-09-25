@@ -5,7 +5,6 @@ package com.kingland.practice.sender;
 
 import com.kingland.practice.buffer.BaseBuffer;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,20 +14,19 @@ import java.util.List;
 public abstract class BaseSender<T> extends Thread {
     private int num;
 
-    public int getNum() {
-        return num;
-    }
     /**
      * The source buffer where sender should get data
      */
-    private BaseBuffer<T> buffer;
+    private final BaseBuffer<T> buffer;
 
     /**
      * Constructor
      *
+     * @param num
      * @param buffer set the source buffer
      */
-    public BaseSender(BaseBuffer buffer) {
+    public BaseSender(int num, BaseBuffer buffer) {
+        this.num = num;
         this.buffer = buffer;
     }
 
@@ -42,46 +40,14 @@ public abstract class BaseSender<T> extends Thread {
     @Override
     public void run() {
         while (true) {
-            List<T> list = new ArrayList<>();
-            synchronized (buffer) {
-                while (buffer.remains - getNum() < 0) {
-                    try {
-                        buffer.wait();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-                for (int i = 0; i < num; i++) {
-                    T t = buffer.poll();
-                    System.out.println(t);
-                    list.add(t);
-                }
-                buffer.notifyAll();
-            }
-            send(list);
+            getBuffer().consume(num, this);
         }
     }
 
     /**
      * send the data which is got from buffer
+     *
+     * @param list list to send
      */
     public abstract void send(List<T> list);
-
-    /**
-     * Judge whether the buffer is empty
-     *
-     * @return boolean type result
-     */
-    public boolean isBufferEmpty() {
-        return buffer.remains == buffer.capacity;
-    }
-
-    /**
-     * get the first element in buffer
-     *
-     * @return element
-     */
-    public List<T> getData() {
-        return (List<T>) getBuffer().poll();
-    }
 }

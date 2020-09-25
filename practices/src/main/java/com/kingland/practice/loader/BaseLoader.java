@@ -12,17 +12,25 @@ import java.util.List;
  * @description
  */
 public abstract class BaseLoader<T> extends Thread {
+    private int num;
+
+    public int getNum() {
+        return num;
+    }
+
     /**
      * The designation buffer where loader should store data
      */
-    private BaseBuffer<T> buffer;
+    private final BaseBuffer<T> buffer;
 
     /**
      * Constructor
      *
+     * @param num
      * @param buffer set the designation buffer
      */
-    public BaseLoader(BaseBuffer buffer) {
+    public BaseLoader(int num, BaseBuffer buffer) {
+        this.num = num;
         this.buffer = buffer;
     }
 

@@ -3,6 +3,7 @@
  */
 package com.kingland.practice.buffer;
 
+import com.kingland.practice.sender.BaseSender;
 import com.kingland.practice.utils.BusinessException;
 import com.kingland.practice.utils.Common;
 
@@ -19,7 +20,7 @@ public class LinkedListBuffer<T> extends BaseBuffer<T> {
     /**
      * Use Linked List to store elements
      */
-    private Queue<T> queue;
+    private final Queue<T> queue;
 
     /**
      * Constructor
@@ -80,7 +81,7 @@ public class LinkedListBuffer<T> extends BaseBuffer<T> {
             throw new BusinessException(Common.NULL_ELEMENT_EXCEPTION);
         }
         synchronized (queue) {
-            while (remains - list.size() >= 0) {
+            while (remains - list.size() < 0) {
                 try {
                     queue.wait();
                 } catch (InterruptedException e) {
@@ -89,6 +90,7 @@ public class LinkedListBuffer<T> extends BaseBuffer<T> {
             }
             for (T t : list) {
                 add(t);
+                System.out.println("add");
             }
             queue.notifyAll();
         }
@@ -100,21 +102,25 @@ public class LinkedListBuffer<T> extends BaseBuffer<T> {
      * @param num the number of elements to send
      */
     @Override
-    public List<T> consume(int num) {
+    public void consume(int num, BaseSender sender) {
         List<T> list = new ArrayList<>(num);
         synchronized (queue) {
-            while (remains - num < 0) {
+            while (queue.size() - num < 0) {
                 try {
                     queue.wait();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
+            System.out.println("hello");
             for (int i = 0; i < num; i++) {
-                list.add(poll());
+                System.out.println("in for");
+                T t = poll();
+                System.out.println(t);
+                list.add(t);
             }
+//            sender.send(list);
             queue.notifyAll();
         }
-        return list;
     }
 }

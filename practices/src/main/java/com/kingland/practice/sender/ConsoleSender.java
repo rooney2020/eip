@@ -12,17 +12,8 @@ import java.util.List;
  * @description
  */
 public class ConsoleSender<T> extends BaseSender {
-    private int num;
-
-    @Override
-    public int getNum() {
-        return num;
-    }
-
     /**
      * send the data which is got from buffer
-     *
-     * @param list
      */
     @Override
     public void send(List list) {
@@ -34,7 +25,7 @@ public class ConsoleSender<T> extends BaseSender {
      *
      * @param buffer set the source buffer
      */
-    public ConsoleSender(BaseBuffer buffer, int num) {
-        super(buffer);
+    public ConsoleSender(int num, BaseBuffer buffer) {
+        super(num, buffer);
     }
 }

@@ -14,14 +14,13 @@ import java.util.Scanner;
  * @description
  */
 public class ConsoleLoader<T> extends BaseLoader {
-    private int num;
     /**
      * Constructor
      *
      * @param buffer set the designation buffer
      */
-    public ConsoleLoader(BaseBuffer buffer, int num) {
-        super(buffer);
+    public ConsoleLoader(int num, BaseBuffer buffer) {
+        super(num, buffer);
     }
 
     /**
@@ -30,8 +29,8 @@ public class ConsoleLoader<T> extends BaseLoader {
     @Override
     public List<T> getData() {
         Scanner scanner = new Scanner(System.in);
-        List<T> list = new ArrayList<>(num);
-        for (int i = 0; i < num; i++) {
+        List<T> list = new ArrayList<>(getNum());
+        for (int i = 0; i < getNum(); i++) {
             list.add((T) scanner.next());
         }
         return list;
