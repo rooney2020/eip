@@ -5,6 +5,8 @@ package com.kingland.practice.loader;
 
 import com.kingland.practice.buffer.BaseBuffer;
 
+import java.util.List;
+
 /**
  * @author KSC
  * @description
@@ -32,11 +34,8 @@ public abstract class BaseLoader<T> extends Thread {
     @Override
     public void run() {
         while (true) {
-            if (!isBufferFull()) {
-                T data = (T) getData();
-                store(data);
-                buffer.produce(1);
-            }
+            List<T> data = (List<T>) getData();
+            buffer.produce(data);
         }
     }
 
@@ -45,16 +44,7 @@ public abstract class BaseLoader<T> extends Thread {
      *
      * @return data to store
      */
-    public abstract T getData();
-
-    /**
-     * store the data into buffer
-     *
-     * @param data data to store
-     */
-    protected void store(T data) {
-        buffer.add(data);
-    }
+    public abstract List<T> getData();
 
     /**
      * Judge whether buffer is full

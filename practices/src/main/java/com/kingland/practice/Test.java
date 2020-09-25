@@ -17,19 +17,14 @@ import com.kingland.practice.sender.ConsoleSender;
 public class Test {
     public static void main(String[] args) {
         BaseBuffer<String> buffer = new LinkedListBuffer(5);
-        System.out.println("mutex: "  + buffer.mutex);
-        System.out.println("capacity: " + buffer.capacity);
-        System.out.println("remains: " + buffer.remains);
 
         int i = 0;
         buffer.add("Hello, test number: " + ++i);
         buffer.add("Hello, test number: " + ++i);
         buffer.add("Hello, test number: " + ++i);
-        buffer.add("Hello, test number: " + ++i);
-        buffer.add("Hello, test number: " + ++i);
 
-        BaseSender sender = new ConsoleSender(buffer);
-        BaseLoader loader = new FileLoader(buffer);
+        BaseSender sender = new ConsoleSender(buffer, 3);
+        BaseLoader loader = new FileLoader(buffer, 2);
         loader.thread = sender;
         loader.start();
         sender.start();

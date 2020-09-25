@@ -6,6 +6,7 @@ package com.kingland.practice.buffer;
 import com.kingland.practice.utils.BusinessException;
 import com.kingland.practice.utils.Common;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -74,17 +75,20 @@ public class LinkedListBuffer<T> extends BaseBuffer<T> {
      * @param list list to load
      */
     @Override
-    public void produce(List list) {
+    public void produce(List<T> list) {
         if (null == list || list.isEmpty()) {
             throw new BusinessException(Common.NULL_ELEMENT_EXCEPTION);
         }
         synchronized (queue) {
-            while (remains + list.size() > capacity) {
+            while (remains - list.size() >= 0) {
                 try {
                     queue.wait();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+            }
+            for (T t : list) {
+                add(t);
             }
             queue.notifyAll();
         }
@@ -96,7 +100,8 @@ public class LinkedListBuffer<T> extends BaseBuffer<T> {
      * @param num the number of elements to send
      */
     @Override
-    public void consume(int num) {
+    public List<T> consume(int num) {
+        List<T> list = new ArrayList<>(num);
         synchronized (queue) {
             while (remains - num < 0) {
                 try {
@@ -105,7 +110,11 @@ public class LinkedListBuffer<T> extends BaseBuffer<T> {
                     e.printStackTrace();
                 }
             }
+            for (int i = 0; i < num; i++) {
+                list.add(poll());
+            }
             queue.notifyAll();
         }
+        return list;
     }
 }

@@ -8,7 +8,6 @@ package com.kingland.practice.utils;
  * @description
  */
 public class Common {
-    public static final String TYPE_CAST_EXCEPTION = "Type cast exception!";
     public static final String CAPACITY_INIT_EXCEPTION = "Capacity initialization exception!";
     public static final String CAPACITY_EXCEPTION = "Capacity exception!";
     public static final String NULL_ELEMENT_EXCEPTION = "Null element exception!";

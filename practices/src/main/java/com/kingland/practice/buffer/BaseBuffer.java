@@ -14,7 +14,10 @@ public abstract class BaseBuffer<T> {
      * The max capacity of buffer
      */
     public int capacity;
-    public byte mutex = 1;
+
+    /**
+     * the remain number of capacity
+     */
     public int remains;
 
     /**
@@ -37,13 +40,14 @@ public abstract class BaseBuffer<T> {
      *
      * @param list list to load
      */
-    public abstract void produce(List list);
+    public abstract void produce(List<T> list);
 
 
     /**
      * consume
      *
      * @param num the number of elements to send
+     * @return return the list of elements
      */
-    public abstract void consume(int num);
+    public abstract List<T> consume(int num);
 }
