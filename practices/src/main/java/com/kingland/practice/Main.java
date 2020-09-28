@@ -13,6 +13,7 @@ import com.kingland.practice.sender.ConsoleSender;
 import com.kingland.practice.sender.FileSender;
 
 import java.io.IOException;
+import java.util.concurrent.*;
 
 /**
  * @author KSC
@@ -33,14 +34,16 @@ public class Main {
         BaseSender consoleSender = new ConsoleSender(consoleBuffer);
         BaseLoader consoleLoader = new ConsoleLoader(consoleBuffer);
 
-        consoleLoader.setPriority(Thread.MIN_PRIORITY);
-        consoleSender.setPriority(Thread.MIN_PRIORITY);
-        fileSender.setPriority(Thread.MAX_PRIORITY);
-        fileLoader.setPriority(Thread.MAX_PRIORITY);
+        Runnable fileLoaderRunnable = fileLoader::run;
+        Runnable fileSenderRunnable = fileSender::run;
+        Runnable consoleLoaderRunnable = consoleLoader::run;
+        Runnable consoleSenderRunnable = consoleSender::run;
 
-        fileLoader.start();
-        fileSender.start();
-        consoleLoader.start();
-        consoleSender.start();
+        ExecutorService service = Executors.newFixedThreadPool(4);
+        Future<?> future = service.submit(fileLoaderRunnable);
+        CompletableFuture<Void> completableFuture1 = CompletableFuture.runAsync(fileLoaderRunnable, service);
+        CompletableFuture<Void> completableFuture2 = CompletableFuture.runAsync(fileSenderRunnable, service);
+        CompletableFuture<Void> completableFuture3 = CompletableFuture.runAsync(consoleLoaderRunnable, service);
+        CompletableFuture<Void> completableFuture4 = CompletableFuture.runAsync(consoleSenderRunnable, service);
     }
 }

@@ -11,7 +11,7 @@ import com.kingland.practice.utils.Common;
  * @author KSC
  * @description Base Sender
  */
-public abstract class BaseSender<T> extends Thread {
+public abstract class BaseSender<T> {
     /**
      * The source buffer where sender should get data
      */
@@ -39,9 +39,8 @@ public abstract class BaseSender<T> extends Thread {
     }
 
     /**
-     * Override the run method which is inherited from Thread class
+     * the entry point of this class
      */
-    @Override
     public void run() {
         while (true) {
             send(getBuffer().poll());

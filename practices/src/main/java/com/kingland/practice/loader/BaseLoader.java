@@ -11,7 +11,7 @@ import com.kingland.practice.utils.Common;
  * @author KSC
  * @description Base Loader
  */
-public abstract class BaseLoader<T> extends Thread {
+public abstract class BaseLoader<T> {
     /**
      * The designation buffer where loader should store data
      */
@@ -30,9 +30,17 @@ public abstract class BaseLoader<T> extends Thread {
     }
 
     /**
-     * Override the run method which is inherited from Thread class
+     * Get the source buffer where sender should get data
+     *
+     * @return The source buffer where sender should get data
      */
-    @Override
+    public BaseBuffer<T> getBuffer() {
+        return buffer;
+    }
+
+    /**
+     * the entry point of this class
+     */
     public void run() {
         while (true) {
             buffer.add(getData());

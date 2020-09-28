@@ -67,7 +67,6 @@ public class FileLoader<T> extends BaseLoader {
         try {
             LineNumberReader reader = new LineNumberReader(new FileReader(file));
             if (lineNumber <= 0 || lineNumber > totalLines) {
-                this.stop();
             }
             int lines = 0;
             while (s != null) {
@@ -82,10 +81,25 @@ public class FileLoader<T> extends BaseLoader {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println(result);
+        System.out.println(result.getClass().getName() + ": " + result);
         if (null == result) {
             throw new BusinessException(Common.FILE_END);
         }
         return (T) result;
+    }
+
+    /**
+     * the entry point of this class
+     */
+    @Override
+    public void run() {
+        while (true) {
+            T t = getData();
+            if (null != t) {
+                getBuffer().add(t);
+            } else {
+                break;
+            }
+        }
     }
 }
