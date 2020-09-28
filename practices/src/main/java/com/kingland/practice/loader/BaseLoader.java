@@ -35,7 +35,7 @@ public abstract class BaseLoader<T> extends Thread {
     @Override
     public void run() {
         while (true) {
-            buffer.produce(this);
+            buffer.add(getData());
         }
     }
 

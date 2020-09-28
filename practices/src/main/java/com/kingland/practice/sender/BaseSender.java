@@ -44,7 +44,7 @@ public abstract class BaseSender<T> extends Thread {
     @Override
     public void run() {
         while (true) {
-            getBuffer().consume(this);
+            send(getBuffer().poll());
         }
     }
 
