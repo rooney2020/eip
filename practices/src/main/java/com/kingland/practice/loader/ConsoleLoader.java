@@ -5,13 +5,11 @@ package com.kingland.practice.loader;
 
 import com.kingland.practice.buffer.BaseBuffer;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 /**
  * @author KSC
- * @description
+ * @description This extends BaseLoader to get data from console
  */
 public class ConsoleLoader<T> extends BaseLoader {
     /**
@@ -19,20 +17,18 @@ public class ConsoleLoader<T> extends BaseLoader {
      *
      * @param buffer set the designation buffer
      */
-    public ConsoleLoader(int num, BaseBuffer buffer) {
-        super(num, buffer);
+    public ConsoleLoader(BaseBuffer<T> buffer) {
+        super(buffer);
     }
 
     /**
-     * @return
+     * get the data which from scanner
+     *
+     * @return list to send
      */
     @Override
-    public List<T> getData() {
+    public T getData() {
         Scanner scanner = new Scanner(System.in);
-        List<T> list = new ArrayList<>(getNum());
-        for (int i = 0; i < getNum(); i++) {
-            list.add((T) scanner.next());
-        }
-        return list;
+        return (T) scanner.next();
     }
 }

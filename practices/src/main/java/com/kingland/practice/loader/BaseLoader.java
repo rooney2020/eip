@@ -4,20 +4,14 @@
 package com.kingland.practice.loader;
 
 import com.kingland.practice.buffer.BaseBuffer;
-
-import java.util.List;
+import com.kingland.practice.utils.BusinessException;
+import com.kingland.practice.utils.Common;
 
 /**
  * @author KSC
- * @description
+ * @description Base Loader
  */
 public abstract class BaseLoader<T> extends Thread {
-    private int num;
-
-    public int getNum() {
-        return num;
-    }
-
     /**
      * The designation buffer where loader should store data
      */
@@ -26,15 +20,14 @@ public abstract class BaseLoader<T> extends Thread {
     /**
      * Constructor
      *
-     * @param num
      * @param buffer set the designation buffer
      */
-    public BaseLoader(int num, BaseBuffer buffer) {
-        this.num = num;
+    public BaseLoader(BaseBuffer<T> buffer) {
+        if (null == buffer) {
+            throw new BusinessException(Common.PARAMETER_EXCEPTION);
+        }
         this.buffer = buffer;
     }
-
-    public Thread thread;
 
     /**
      * Override the run method which is inherited from Thread class
@@ -42,8 +35,7 @@ public abstract class BaseLoader<T> extends Thread {
     @Override
     public void run() {
         while (true) {
-            List<T> data = (List<T>) getData();
-            buffer.produce(data);
+            buffer.produce(this);
         }
     }
 
@@ -52,14 +44,6 @@ public abstract class BaseLoader<T> extends Thread {
      *
      * @return data to store
      */
-    public abstract List<T> getData();
+    public abstract T getData();
 
-    /**
-     * Judge whether buffer is full
-     *
-     * @return boolean type result
-     */
-    public boolean isBufferFull() {
-        return buffer.remains == 0;
-    }
 }

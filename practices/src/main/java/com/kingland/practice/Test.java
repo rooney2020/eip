@@ -6,28 +6,41 @@ package com.kingland.practice;
 import com.kingland.practice.buffer.BaseBuffer;
 import com.kingland.practice.buffer.LinkedListBuffer;
 import com.kingland.practice.loader.BaseLoader;
+import com.kingland.practice.loader.ConsoleLoader;
 import com.kingland.practice.loader.FileLoader;
 import com.kingland.practice.sender.BaseSender;
 import com.kingland.practice.sender.ConsoleSender;
+import com.kingland.practice.sender.FileSender;
+
+import java.io.IOException;
 
 /**
  * @author KSC
- * @description
+ * @description Test class for testing the application
  */
 public class Test {
-    public static void main(String[] args) {
-        BaseBuffer<String> buffer = new LinkedListBuffer(5);
+    public static void main(String[] args) throws IOException {
+        BaseBuffer<String> fileBuffer = new LinkedListBuffer(5);
+        BaseBuffer<String> consoleBuffer = new LinkedListBuffer(5);
 
         int i = 0;
-        buffer.add("Hello, test number: " + ++i);
-        buffer.add("Hello, test number: " + ++i);
-        buffer.add("Hello, test number: " + ++i);
+        consoleBuffer.add("Hello, test number: " + ++i);
+        consoleBuffer.add("Hello, test number: " + ++i);
+        consoleBuffer.add("Hello, test number: " + ++i);
 
-        BaseSender sender = new ConsoleSender(3, buffer);
-        BaseLoader loader = new FileLoader(2, buffer);
-        loader.thread = sender;
-        loader.start();
-        sender.start();
-        System.out.println("Start!");
+        BaseSender fileSender = new FileSender(fileBuffer, "output.txt");
+        BaseLoader fileLoader = new FileLoader(fileBuffer, "input.txt");
+        BaseSender consoleSender = new ConsoleSender(consoleBuffer);
+        BaseLoader consoleLoader = new ConsoleLoader(consoleBuffer);
+
+        consoleLoader.setPriority(Thread.MIN_PRIORITY);
+        consoleSender.setPriority(Thread.MIN_PRIORITY);
+        fileSender.setPriority(Thread.MAX_PRIORITY);
+        fileLoader.setPriority(Thread.MAX_PRIORITY);
+
+        fileLoader.start();
+        fileSender.start();
+        consoleLoader.start();
+        consoleSender.start();
     }
 }

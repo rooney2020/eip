@@ -5,19 +5,19 @@ package com.kingland.practice.sender;
 
 import com.kingland.practice.buffer.BaseBuffer;
 
-import java.util.List;
-
 /**
  * @author KSC
- * @description
+ * @description This extends BaseSender to send data into console
  */
 public class ConsoleSender<T> extends BaseSender {
     /**
      * send the data which is got from buffer
+     *
+     * @param t element to send
      */
     @Override
-    public void send(List list) {
-        System.out.println(list);
+    public void send(Object t) {
+        System.out.println(t.toString());
     }
 
     /**
@@ -25,7 +25,7 @@ public class ConsoleSender<T> extends BaseSender {
      *
      * @param buffer set the source buffer
      */
-    public ConsoleSender(int num, BaseBuffer buffer) {
-        super(num, buffer);
+    public ConsoleSender(BaseBuffer<T> buffer) {
+        super(buffer);
     }
 }

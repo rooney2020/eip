@@ -3,13 +3,12 @@
  */
 package com.kingland.practice.buffer;
 
+import com.kingland.practice.loader.BaseLoader;
 import com.kingland.practice.sender.BaseSender;
 import com.kingland.practice.utils.BusinessException;
 import com.kingland.practice.utils.Common;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
 
 /**
@@ -73,25 +72,23 @@ public class LinkedListBuffer<T> extends BaseBuffer<T> {
     /**
      * produce
      *
-     * @param list list to load
+     * @param loader loader
      */
     @Override
-    public void produce(List<T> list) {
-        if (null == list || list.isEmpty()) {
-            throw new BusinessException(Common.NULL_ELEMENT_EXCEPTION);
+    public void produce(BaseLoader<T> loader) {
+        if (null == loader) {
+            throw new BusinessException(Common.PARAMETER_EXCEPTION);
         }
         synchronized (queue) {
-            while (remains - list.size() < 0) {
+            while (remains <= 0) {
                 try {
                     queue.wait();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
-            for (T t : list) {
-                add(t);
-                System.out.println("add");
-            }
+            T t = (T) loader.getData();
+            add(t);
             queue.notifyAll();
         }
     }
@@ -99,27 +96,23 @@ public class LinkedListBuffer<T> extends BaseBuffer<T> {
     /**
      * consume
      *
-     * @param num the number of elements to send
+     * @param sender sender
      */
     @Override
-    public void consume(int num, BaseSender sender) {
-        List<T> list = new ArrayList<>(num);
+    public void consume(BaseSender<T> sender) {
+        if (null == sender) {
+            throw new BusinessException(Common.PARAMETER_EXCEPTION);
+        }
         synchronized (queue) {
-            while (queue.size() - num < 0) {
+            while (queue.size() <= 0) {
                 try {
                     queue.wait();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
-            System.out.println("hello");
-            for (int i = 0; i < num; i++) {
-                System.out.println("in for");
-                T t = poll();
-                System.out.println(t);
-                list.add(t);
-            }
-//            sender.send(list);
+            T t = poll();
+            sender.send(t);
             queue.notifyAll();
         }
     }

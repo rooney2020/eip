@@ -4,16 +4,14 @@
 package com.kingland.practice.sender;
 
 import com.kingland.practice.buffer.BaseBuffer;
-
-import java.util.List;
+import com.kingland.practice.utils.BusinessException;
+import com.kingland.practice.utils.Common;
 
 /**
  * @author KSC
- * @description
+ * @description Base Sender
  */
 public abstract class BaseSender<T> extends Thread {
-    private int num;
-
     /**
      * The source buffer where sender should get data
      */
@@ -22,14 +20,20 @@ public abstract class BaseSender<T> extends Thread {
     /**
      * Constructor
      *
-     * @param num
      * @param buffer set the source buffer
      */
-    public BaseSender(int num, BaseBuffer buffer) {
-        this.num = num;
+    public BaseSender(BaseBuffer<T> buffer) {
+        if (null == buffer) {
+            throw new BusinessException(Common.PARAMETER_EXCEPTION);
+        }
         this.buffer = buffer;
     }
 
+    /**
+     * Get the source buffer where sender should get data
+     *
+     * @return The source buffer where sender should get data
+     */
     public BaseBuffer<T> getBuffer() {
         return buffer;
     }
@@ -40,14 +44,14 @@ public abstract class BaseSender<T> extends Thread {
     @Override
     public void run() {
         while (true) {
-            getBuffer().consume(num, this);
+            getBuffer().consume(this);
         }
     }
 
     /**
      * send the data which is got from buffer
      *
-     * @param list list to send
+     * @param t element to send
      */
-    public abstract void send(List<T> list);
+    public abstract void send(T t);
 }

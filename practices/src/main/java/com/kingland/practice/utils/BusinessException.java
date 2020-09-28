@@ -5,9 +5,14 @@ package com.kingland.practice.utils;
 
 /**
  * @author KSC
- * @description
+ * @description The custom business exception
  */
 public class BusinessException extends RuntimeException{
+    /**
+     * Constructor
+     *
+     * @param warningMessage warning message
+     */
     public BusinessException(String warningMessage) {
         super(warningMessage);
     }

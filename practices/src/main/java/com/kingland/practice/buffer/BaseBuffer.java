@@ -3,9 +3,8 @@
  */
 package com.kingland.practice.buffer;
 
+import com.kingland.practice.loader.BaseLoader;
 import com.kingland.practice.sender.BaseSender;
-
-import java.util.List;
 
 /**
  * @author KSC
@@ -18,12 +17,12 @@ public abstract class BaseBuffer<T> {
     public int capacity;
 
     /**
-     * the remain number of capacity
+     * The number of elements that can be stored in the remaining space
      */
     public int remains;
 
     /**
-     * add the parameter element into buffer
+     * Add the parameter element into buffer
      *
      * @param var1 element to add
      * @return return the result
@@ -31,25 +30,23 @@ public abstract class BaseBuffer<T> {
     public abstract boolean add(T var1);
 
     /**
-     * get and remove the first element in buffer
+     * Get and remove the first element in buffer
      *
      * @return return the first element
      */
     public abstract T poll();
 
     /**
-     * produce
+     * Produce
      *
-     * @param list list to load
+     * @param loader loader
      */
-    public abstract void produce(List<T> list);
-
+    public abstract void produce(BaseLoader<T> loader);
 
     /**
-     * consume
+     * Consume
      *
-     * @param num the number of elements to send
-     * @return return the list of elements
+     * @param sender sender
      */
-    public abstract void consume(int num, BaseSender sender);
+    public abstract void consume(BaseSender<T> sender);
 }
