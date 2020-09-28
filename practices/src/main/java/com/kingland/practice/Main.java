@@ -18,7 +18,7 @@ import java.io.IOException;
  * @author KSC
  * @description Test class for testing the application
  */
-public class Test {
+public class Main {
     public static void main(String[] args) throws IOException {
         BaseBuffer<String> fileBuffer = new LinkedListBuffer(5);
         BaseBuffer<String> consoleBuffer = new LinkedListBuffer(5);
