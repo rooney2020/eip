@@ -5,9 +5,13 @@ package com.kingland.ioc.util;
 
 /**
  * @author KSC
- * @description
  */
 public class BusinessException extends RuntimeException {
+    /**
+     * Constructor
+     *
+     * @param message message to print
+     */
     public BusinessException(String message) {
         super(message);
     }

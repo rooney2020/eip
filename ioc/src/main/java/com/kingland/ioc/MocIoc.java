@@ -5,7 +5,6 @@ package com.kingland.ioc;
 
 /**
  * @author KSC
- * @description
  */
 public class MocIoc {
 }

@@ -18,9 +18,9 @@ class MocIocTest {
         container = new IocContainerImpl();
         container.setBean(Benz.class, "benz");
         container.setBean(BMW.class, "bmw");
-        ConstructorArg arg = new ConstructorArg(Benz.class, "benz", Car.class);
+        ConstructorArg arg = new ConstructorArg(Car.class, "benz");
         container.setBean(Intern.class, "intern", arg);
-        ConstructorArg arg2 = new ConstructorArg(BMW.class, "bmw", Car.class);
+        ConstructorArg arg2 = new ConstructorArg(Car.class, "bmw");
         container.setBean(Regular.class, "regular", arg2);
     }
 

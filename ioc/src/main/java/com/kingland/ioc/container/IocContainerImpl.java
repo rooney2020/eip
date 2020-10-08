@@ -12,7 +12,6 @@ import java.util.Map;
 
 /**
  * @author KSC
- * @description
  */
 public class IocContainerImpl implements IocContainer {
 
@@ -21,7 +20,7 @@ public class IocContainerImpl implements IocContainer {
     /**
      * set the bean into container
      *
-     * @param path the path of bean class which you want to set into container
+     * @param cls the type of bean class which you want to set into container
      * @param id   the id of bean in container
      * @param args the arguments of constructor
      */
@@ -34,11 +33,10 @@ public class IocContainerImpl implements IocContainer {
             Object[] parameters = new Object[args.length];
 
             for (int i = 0; i < args.length; i++) {
-                if (null != args[i].getValue()) {
-                    classes[i] = args[i].getCls();
+                classes[i] = args[i].getCls();
+                if (null != args[i].getCls() && null != args[i].getValue()) {
                     parameters[i] = args[i].getValue();
-                } else if (null != args[i].getRef() && null != args[i].getRefCls()) {
-                    classes[i] = args[i].getRefCls();
+                } else if (null != args[i].getCls() && null != args[i].getRef()) {
                     parameters[i] = getBean(args[i].getRef());
                 } else {
                     throw new BusinessException(Common.NO_ARGS);

@@ -5,18 +5,32 @@ package com.kingland.ioc.container;
 
 /**
  * @author KSC
- * @description
  */
 public class ConstructorArg {
+    /**
+     * primitive type class, low priority.
+     * Or the interface class or abstract class of this reference, high priority.
+     */
     private Class cls;
-    private Object value;
-    private String ref;
-    private Class refCls;
 
-    public ConstructorArg(Class cls, String ref, Class refCls) {
+    /**
+     * value
+     */
+    private Object value;
+
+    /**
+     * reference value
+     */
+    private String ref;
+
+    /**
+     *
+     * @param cls reference type class
+     * @param ref reference value
+     */
+    public ConstructorArg(Class cls, String ref) {
         this.cls = cls;
         this.ref = ref;
-        this.refCls = refCls;
     }
 
     public ConstructorArg(Class cls, Object value) {
@@ -46,13 +60,5 @@ public class ConstructorArg {
 
     public void setRef(String ref) {
         this.ref = ref;
-    }
-
-    public Class getRefCls() {
-        return refCls;
-    }
-
-    public void setRefCls(Class refCls) {
-        this.refCls = refCls;
     }
 }
