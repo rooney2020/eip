@@ -21,4 +21,11 @@ public interface BaseBuffer<T> {
      * @return return the first element
      */
     public abstract T poll();
+
+    /**
+     * Get the number of buffer capacity
+     *
+     * @return Get the number of buffer capacity
+     */
+    public abstract int size();
 }

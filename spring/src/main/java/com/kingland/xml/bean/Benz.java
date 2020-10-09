@@ -1,37 +1,38 @@
 /**
  * Copyright 2020 Kingland Systems Corporation. All Rights Reserved.
  */
-package com.kingland.ioc.bean;
+package com.kingland.xml.bean;
 
 /**
  * @author KSC
+ * @description
  */
-public class BMW implements Car {
+public class Benz implements Car {
     /**
      * print car start
      */
     public void start() {
-        System.out.println("BMW start!");
+        System.out.println("Benz start!");
     }
 
     /**
      * print car turnLeft
      */
     public void turnLeft() {
-        System.out.println("BMW turn left!");
+        System.out.println("Benz turn left!");
     }
 
     /**
      * print car turnRight
      */
     public void turnRight() {
-        System.out.println("BMW turn right!");
+        System.out.println("Benz turn right!");
     }
 
     /**
      * print car stop
      */
     public void stop() {
-        System.out.println("BMW stop!");
+        System.out.println("Benz stop!");
     }
 }

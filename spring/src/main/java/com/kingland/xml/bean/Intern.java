@@ -1,28 +1,26 @@
 /**
  * Copyright 2020 Kingland Systems Corporation. All Rights Reserved.
  */
-package com.kingland.ioc.bean;
+package com.kingland.xml.bean;
 
 /**
  * @author KSC
  */
-public abstract class Employee {
-    /**
-     * the car which employee drive to go to work
-     */
-    private Car car;
-
+public class Intern extends Employee {
     /**
      * Constructor
      *
      * @param car the car which employee drive to go to work
      */
-    public Employee(Car car) {
-        this.car = car;
+    public Intern(Car car) {
+        super(car);
     }
 
     /**
      * work
      */
-    public abstract void work();
+    @Override
+    public void work() {
+        System.out.println("Working eight hours a day brings in 100 yuan!");
+    }
 }

@@ -41,5 +41,5 @@ public class Common {
     /**
      * default file path
      */
-    public static final String FILE_PATH = "practices/src/main/java/com/kingland/practice/output/";
+    public static final String FILE_PATH = "practices/src/main/java/com/kingland/com.kingland.practice/output/";
 }

@@ -1,7 +1,7 @@
 /**
  * Copyright 2020 Kingland Systems Corporation. All Rights Reserved.
  */
-package com.kingland.ioc.bean;
+package com.kingland.xml.bean;
 
 /**
  * @author KSC

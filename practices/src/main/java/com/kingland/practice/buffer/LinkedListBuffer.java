@@ -91,4 +91,14 @@ public class LinkedListBuffer<T> implements BaseBuffer<T> {
         }
         return t;
     }
+
+    /**
+     * Get the number of buffer capacity
+     *
+     * @return Get the number of buffer capacity
+     */
+    @Override
+    public int size() {
+        return queue.size();
+    }
 }
