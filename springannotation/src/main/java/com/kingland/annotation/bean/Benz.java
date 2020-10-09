@@ -1,13 +1,26 @@
 /**
  * Copyright 2020 Kingland Systems Corporation. All Rights Reserved.
  */
-package com.kingland.xml.bean;
+package com.kingland.annotation.bean;
+
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Scope;
+import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
 
 /**
  * @author KSC
- * @description
  */
+@Order(2)
+@Component
 public class Benz implements Car {
+    /**
+     * Constructor
+     */
+    public Benz() {
+        System.out.println("Purchase a Benz!");
+    }
+
     /**
      * print car start
      */

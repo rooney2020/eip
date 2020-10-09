@@ -8,12 +8,17 @@ package com.kingland.xml.bean;
  */
 public class Intern extends Employee {
     /**
-     * Constructor
-     *
-     * @param car the car which employee drive to go to work
+     * car
      */
-    public Intern(Car car) {
-        super(car);
+    private Car car;
+
+    /**
+     * setter
+     *
+     * @param car car
+     */
+    public void setCar(Car car) {
+        this.car = car;
     }
 
     /**
@@ -21,6 +26,6 @@ public class Intern extends Employee {
      */
     @Override
     public void work() {
-        System.out.println("Working eight hours a day brings in 100 yuan!");
+        System.out.println("Go to work by " + car);
     }
 }
