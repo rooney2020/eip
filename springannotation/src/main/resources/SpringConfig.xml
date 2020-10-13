@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       https://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:annotation-config />
+
+<!--    <bean name="benz" class="com.kingland.annotation.bean.Benz" lazy-init="true" scope="prototype"/>-->
+<!--    <bean name="bmw" class="com.kingland.annotation.bean.Bmw"/>-->
+<!--    <bean name="intern" class="com.kingland.annotation.bean.Intern"/>-->
+<!--    <bean name="regular" class="com.kingland.annotation.bean.Regular"/>-->
+</beans>

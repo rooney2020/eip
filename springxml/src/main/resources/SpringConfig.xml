@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean name="benz" class="com.kingland.xml.bean.Benz" lazy-init="true" scope="prototype"/>
+    <bean name="intern" class="com.kingland.xml.bean.Intern">
+        <property name="car" ref="benz" />
+    </bean>
+    <bean name="regular" class="com.kingland.xml.bean.Regular">
+        <constructor-arg index="0" ref="benz" />
+        <property name="children">
+            <list>
+                <value>child 01</value>
+                <value>child 02</value>
+                <value>child 03</value>
+                <null />
+            </list>
+        </property>
+        <property name="houses">
+            <set>
+                <value>house 01</value>
+                <value>house 02</value>
+                <value>house 03</value>
+            </set>
+        </property>
+        <property name="cars">
+            <map>
+                <entry key="car01" value-ref="benz" />
+                <entry key="car02" value-ref="benz" />
+                <entry key="car03" value-ref="benz" />
+            </map>
+        </property>
+    </bean>
+</beans>
