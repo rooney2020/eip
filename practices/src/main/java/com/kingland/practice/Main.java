@@ -4,7 +4,7 @@
 package com.kingland.practice;
 
 import com.kingland.practice.buffer.BaseBuffer;
-import com.kingland.practice.buffer.LinkedListBuffer;
+import com.kingland.practice.buffer.LinkedBlockingQueueBuffer;
 import com.kingland.practice.loader.BaseLoader;
 import com.kingland.practice.loader.ConsoleLoader;
 import com.kingland.practice.loader.FileLoader;
@@ -21,8 +21,8 @@ import java.util.concurrent.*;
  */
 public class Main {
     public static void main(String[] args) throws IOException {
-        BaseBuffer<String> fileBuffer = new LinkedListBuffer(5);
-        BaseBuffer<String> consoleBuffer = new LinkedListBuffer(5);
+        BaseBuffer<String> fileBuffer = new LinkedBlockingQueueBuffer(5);
+        BaseBuffer<String> consoleBuffer = new LinkedBlockingQueueBuffer(5);
 
         int i = 0;
         consoleBuffer.add("Hello, test number: " + ++i);
