@@ -1,3 +1,9 @@
+#maven
+*/.mvn
+*/mvnw
+*/mvnw.cmd
+*/.gitignore
+
 # Idea
 .idea
 *.iml
