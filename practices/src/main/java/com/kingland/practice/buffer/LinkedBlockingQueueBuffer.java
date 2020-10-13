@@ -6,14 +6,14 @@ package com.kingland.practice.buffer;
 import com.kingland.practice.utils.BusinessException;
 import com.kingland.practice.utils.Common;
 
-import java.util.LinkedList;
 import java.util.Queue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * @author KSC
  * @description The buffer used Linked List which can add and poll elements
  */
-public class LinkedListBuffer<T> implements BaseBuffer<T> {
+public class LinkedBlockingQueueBuffer<T> implements BaseBuffer<T> {
     /**
      * Use Linked List to store elements
      */
@@ -25,20 +25,14 @@ public class LinkedListBuffer<T> implements BaseBuffer<T> {
     private final int capacity;
 
     /**
-     * The number of elements that can be stored in the remaining space
-     */
-    private int remains;
-
-    /**
      * Constructor
      *
      * @param capacity set the capacity value for buffer
      */
-    public LinkedListBuffer(int capacity) {
+    public LinkedBlockingQueueBuffer(int capacity) {
         if (capacity > 0) {
             this.capacity = capacity;
-            remains = capacity;
-            queue = new LinkedList<T>();
+            queue = new LinkedBlockingQueue<T>();
         } else {
             throw new BusinessException(Common.CAPACITY_INIT_EXCEPTION);
         }
@@ -52,7 +46,7 @@ public class LinkedListBuffer<T> implements BaseBuffer<T> {
     @Override
     public void add(T var1) {
         synchronized (queue) {
-            while (queue.size() > capacity) {
+            while (queue.size() >= capacity) {
                 try {
                     queue.wait();
                 } catch (InterruptedException e) {
@@ -60,7 +54,6 @@ public class LinkedListBuffer<T> implements BaseBuffer<T> {
                 }
             }
             queue.add(var1);
-            remains = capacity - queue.size();
             queue.notifyAll();
         }
     }
@@ -82,11 +75,6 @@ public class LinkedListBuffer<T> implements BaseBuffer<T> {
                 }
             }
             t = queue.poll();
-            if (null != t) {
-                remains = capacity - queue.size();
-            } else {
-                throw new BusinessException(Common.NULL_ELEMENT_EXCEPTION);
-            }
             queue.notifyAll();
         }
         return t;

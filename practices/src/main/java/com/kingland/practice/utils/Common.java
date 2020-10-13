@@ -14,16 +14,6 @@ public class Common {
     public static final String CAPACITY_INIT_EXCEPTION = "Capacity initialization exception!";
 
     /**
-     * Capacity exception
-     */
-    public static final String CAPACITY_EXCEPTION = "Capacity exception!";
-
-    /**
-     * Null element exception
-     */
-    public static final String NULL_ELEMENT_EXCEPTION = "Null element exception!";
-
-    /**
      * Parameter exception
      */
     public static final String PARAMETER_EXCEPTION = "Parameter exception!";
@@ -41,5 +31,5 @@ public class Common {
     /**
      * default file path
      */
-    public static final String FILE_PATH = "practices/src/main/java/com/kingland/com.kingland.practice/output/";
+    public static final String FILE_PATH = "practices/src/main/java/com/kingland/practice/output/";
 }
