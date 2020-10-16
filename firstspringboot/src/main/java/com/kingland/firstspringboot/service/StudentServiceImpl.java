@@ -5,6 +5,9 @@ package com.kingland.firstspringboot.service;
 
 import com.kingland.firstspringboot.mapper.StudentModelMapper;
 import com.kingland.firstspringboot.model.StudentModel;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +18,6 @@ import java.util.List;
  */
 @Service
 public class StudentServiceImpl implements StudentService {
-
     private final StudentModelMapper mapper;
 
     public StudentServiceImpl(StudentModelMapper mapper) {
@@ -28,29 +30,26 @@ public class StudentServiceImpl implements StudentService {
         return mapper.getAllStudents();
     }
 
-    @Cacheable(cacheNames = "student", key = "#{id}")
+    @Cacheable(cacheNames = "student", key = "#id")
     @Override
     public StudentModel getStudentById(long id) {
         return mapper.getStudentById(id);
     }
 
-    @Cacheable(cacheNames = "student", key = "#{id}")
     @Override
     public int addStudent(StudentModel student) {
         return mapper.addStudent(student);
     }
 
-    @Cacheable(cacheNames = "student", key = "#{id}")
+    @CachePut(cacheNames = "student", key = "#student.id")
     @Override
     public int updateStudentById(StudentModel student) {
         return mapper.updateStudentById(student);
     }
 
-    @Cacheable(cacheNames = "student", key = "#{id}")
+    @CacheEvict(cacheNames = "student", key = "#id")
     @Override
     public int deleteStudentById(long id) {
-        return deleteStudentById(id);
+        return mapper.deleteStudentById(id);
     }
-
-
 }
