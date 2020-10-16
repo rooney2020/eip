@@ -39,7 +39,7 @@ public class HelloServiceImpl implements HelloService {
 
     /**
      * change the charset of string
-     * 
+     *
      * @param str original string
      * @param original original charset of string
      * @param aim aimed charset
