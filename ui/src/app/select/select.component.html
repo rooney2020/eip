@@ -1,0 +1,7 @@
+<select #selectElement (change)="display(selectElement.value)">
+  <option value="-1">Please select an option!</option>
+  <option *ngFor='let option of selectOptions' [value]='option.value'>{{ option.option }}</option>
+</select>
+<hr/>
+<app-input *ngIf="displayKey == '0'"></app-input>
+<app-image *ngIf="displayKey == '1'"></app-image>
